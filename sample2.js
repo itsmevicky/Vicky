@@ -3,7 +3,9 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 400;
+
 // --- Game Classes ---
+
 class Player {
   constructor(game) {
     this.game = game;
@@ -16,6 +18,7 @@ class Player {
     this.isJumping = false;
     this.isGrounded = true;
   }
+
   draw() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -34,12 +37,14 @@ class Player {
       ctx.stroke();
     }
   }
+
   update() {
     // Apply gravity if not on the ground
     if (!this.isGrounded) {
       this.velocityY += this.game.physics.gravity;
     }
     this.y += this.velocityY;
+
     // Check for ground collision
     if (this.y >= this.game.groundLevel - this.height) {
       this.y = this.game.groundLevel - this.height;
@@ -48,6 +53,7 @@ class Player {
       this.isJumping = false;
     }
   }
+
   jump() {
     if (this.isGrounded) {
       this.isGrounded = false;
@@ -56,6 +62,7 @@ class Player {
     }
   }
 }
+
 class Obstacle {
   constructor(game) {
     this.game = game;
@@ -65,10 +72,12 @@ class Obstacle {
     this.y = this.game.groundLevel - this.height;
     this.color = "#ff4d4d";
   }
+
   draw() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+
   update() {
     if (!this.game.timeSlowed) {
       this.x -= this.game.obstacleSpeed;
@@ -77,6 +86,7 @@ class Obstacle {
     }
   }
 }
+
 class PowerUp {
   constructor(game) {
     this.game = game;
@@ -88,10 +98,12 @@ class PowerUp {
     this.type = this.getRandomType();
     this.color = this.getColorForType();
   }
+
   getRandomType() {
     const types = ["scoreMultiplier", "shield", "highJump", "slowTime"];
     return types[Math.floor(Math.random() * types.length)];
   }
+
   getColorForType() {
     switch (this.type) {
       case "scoreMultiplier":
@@ -106,10 +118,12 @@ class PowerUp {
         return "#cccccc";
     }
   }
+
   draw() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+
   update() {
     if (!this.game.timeSlowed) {
       this.x -= this.game.obstacleSpeed;
@@ -118,6 +132,7 @@ class PowerUp {
     }
   }
 }
+
 class Game {
   constructor() {
     this.player = new Player(this);
@@ -142,6 +157,7 @@ class Game {
     this.shieldActive = false;
     this.timeSlowed = false;
   }
+
   drawParallaxBackground() {
     ctx.fillStyle = "#6b5e54";
     ctx.fillRect(
@@ -152,6 +168,7 @@ class Game {
     );
     ctx.fillStyle = "#87ceeb";
     ctx.fillRect(0, 0, canvas.width, this.groundLevel);
+
     ctx.fillStyle = "#cccccc";
     for (let i = 0; i < 50; i++) {
       const starX = (i * 50 + this.parallaxBackground.x) % canvas.width;
@@ -161,6 +178,7 @@ class Game {
     }
     this.parallaxBackground.x -= this.parallaxBackground.speed;
   }
+
   drawUI() {
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
@@ -168,6 +186,7 @@ class Game {
     ctx.fillText(`Score: ${this.score}`, 10, 25);
     ctx.textAlign = "right";
     ctx.fillText(`High Score: ${this.highScore}`, canvas.width - 10, 25);
+
     ctx.textAlign = "center";
     if (this.scoreMultiplier > 1) {
       ctx.fillStyle = "#ffd700";
@@ -186,6 +205,7 @@ class Game {
       ctx.fillText("Time Slowed!", canvas.width / 2, 75);
     }
   }
+
   generateObstacle() {
     const currentTime = Date.now();
     const interval = this.timeSlowed
@@ -196,6 +216,7 @@ class Game {
       this.lastObstacleTime = currentTime;
     }
   }
+
   generatePowerUp() {
     const currentTime = Date.now();
     const interval = this.timeSlowed
@@ -206,6 +227,7 @@ class Game {
       this.lastPowerUpTime = currentTime;
     }
   }
+
   checkCollision() {
     // Obstacle collision
     this.obstacles.forEach((obstacle, index) => {
@@ -223,6 +245,7 @@ class Game {
         }
       }
     });
+
     // Power-up collision
     this.powerUps.forEach((powerUp, index) => {
       if (
@@ -236,6 +259,7 @@ class Game {
       }
     });
   }
+
   activatePowerUp(powerUp) {
     switch (powerUp.type) {
       case "scoreMultiplier":
@@ -265,6 +289,7 @@ class Game {
         break;
     }
   }
+
   updateDifficulty() {
     const speedMultiplier = this.timeSlowed ? 0.5 : 1;
     this.obstacleSpeed += 0.001 * speedMultiplier;
@@ -272,6 +297,7 @@ class Game {
       this.obstacleInterval -= 0.1 * speedMultiplier;
     }
   }
+
   endGame() {
     this.gameOver = true;
     this.updateHighScore();
@@ -291,12 +317,14 @@ class Game {
       canvas.height / 2 + 40
     );
   }
+
   updateHighScore() {
     if (this.score > this.highScore) {
       this.highScore = this.score;
       localStorage.setItem("highScore", this.highScore);
     }
   }
+
   restart() {
     this.player = new Player(this);
     this.obstacles = [];
@@ -312,35 +340,44 @@ class Game {
     this.timeSlowed = false;
     this.gameLoop(0); // Restart the loop
   }
+
   gameLoop(timestamp) {
     if (this.gameOver) {
       return;
     }
+
     const deltaTime = timestamp - this.lastUpdateTime;
     this.lastUpdateTime = timestamp;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.drawParallaxBackground();
+
     this.player.update();
     this.obstacles.forEach((obstacle) => obstacle.update());
     this.powerUps.forEach((powerUp) => powerUp.update());
+
     this.generateObstacle();
     this.generatePowerUp();
     this.checkCollision();
     this.updateDifficulty();
     this.score += this.scoreMultiplier;
+
     this.obstacles = this.obstacles.filter(
       (obstacle) => obstacle.x + obstacle.width > 0
     );
     this.powerUps = this.powerUps.filter(
       (powerUp) => powerUp.x + powerUp.width > 0
     );
+
     this.player.draw();
     this.obstacles.forEach((obstacle) => obstacle.draw());
     this.powerUps.forEach((powerUp) => powerUp.draw());
     this.drawUI();
+
     requestAnimationFrame(this.gameLoop.bind(this));
   }
 }
+
 // --- Event Listeners ---
 document.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
@@ -351,6 +388,7 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+
 // --- Start the game ---
 const myGame = new Game();
 myGame.gameLoop(0);

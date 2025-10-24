@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K Vignesh - AIML Student Portfolio</title>
+    <title>M Yogeshwaran- AIML Student Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
@@ -641,7 +641,7 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo">K<span>V</span></a>
+                <a href="#" class="logo">y<span>w</span></a>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
@@ -661,7 +661,7 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>I'm <span style="color: var(--highlight)">K Vignesh</span></h1>
+                <h1>I'm <span style="color: var(--highlight)">M Yogeshwaran</span></h1>
                 <p>A passionate BSc Artificial Intelligence & Machine Learning student</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">View Projects</a>
@@ -678,7 +678,7 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Hello! I'm K Vignesh, a BSc Artificial Intelligence and Machine Learning student based in India. I'm passionate about AI technologies and enjoy learning about machine learning algorithms, data analysis, and intelligent systems.</p>
+                    <p>Hello! I'm M Yogeshwaran, a BSc Artificial Intelligence and Machine Learning student based in India. I'm passionate about AI technologies and enjoy learning about machine learning algorithms, data analysis, and intelligent systems.</p>
                     <p>Although I'm still a student with no professional experience yet, I'm constantly expanding my knowledge through coursework and self-study. I'm eager to apply my skills to real-world problems and contribute to the field of artificial intelligence.</p>
                     <div class="skills">
                         <span class="skill-tag">Python</span>
@@ -934,7 +934,7 @@
                         </div>
                         <div>
                             <h3>Email</h3>
-                            <p>vickykesavan2006@gmail.com</p>
+                            <p>yoxezzxolo@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -943,7 +943,7 @@
                         </div>
                         <div>
                             <h3>Phone</h3>
-                            <p>+91 9042079582</p>
+                            <p>+91 6374129550</p>
                         </div>
                     </div>
                     <div class="contact-item">
